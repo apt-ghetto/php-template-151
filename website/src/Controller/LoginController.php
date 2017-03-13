@@ -1,18 +1,18 @@
 <?php
 
-namespace ihrname\Controller;
+namespace aptghetto\Controller;
 
-use ihrname\SimpleTemplateEngine;
+use aptghetto\SimpleTemplateEngine;
 
 class LoginController 
 {
   /**
-   * @var ihrname\SimpleTemplateEngine Template engines to render output
+   * @var aptghetto\SimpleTemplateEngine Template engines to render output
    */
   private $template;
   
   /**
-   * @param ihrname\SimpleTemplateEngine
+   * @param aptghetto\SimpleTemplateEngine
    */
   public function __construct(SimpleTemplateEngine $template)
   {
