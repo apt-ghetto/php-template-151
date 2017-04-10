@@ -1,13 +1,16 @@
 <?php
 
 error_reporting(E_ALL);
+session_start();
 
 require_once("../vendor/autoload.php");
-$tmpl = new aptghetto\SimpleTemplateEngine(__DIR__ . "/../templates/");
+$conf = parse_ini_file(__DIR__ . "/../config.ini", true);
+//var_dump($conf); die();
+$factory = new aptghetto\Factory($conf);
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
-		(new aptghetto\Controller\IndexController($tmpl))->homepage();
+		$factory->getIndexController()->homepage();
 		break;
 	case "/test/upload":
 		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
@@ -17,12 +20,17 @@ switch($_SERVER["REQUEST_URI"]) {
 		}
 		break;
 	case "/login":
-		(new aptghetto\Controller\LoginController($tmpl))->showLogin();
+		$ctr = $factory->getLoginController();
+		if($_SERVER['REQUEST_METHOD'] == "GET") {
+			$ctr->showLogin();
+		} else {
+			$ctr->login($_POST);
+		}		
 		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
-			(new aptghetto\Controller\IndexController($tmpl))->greet($matches[1]);
+			$factory->getIndexController()->greet($matches[1]);
 			break;
 		}
 		echo "Not Found";

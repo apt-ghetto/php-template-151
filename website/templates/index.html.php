@@ -1,1 +1,1 @@
-<p>Hallo</p>
+<?= (array_key_exists("email", $_SESSION)) ? $_SESSION["email"] : "" ?>
