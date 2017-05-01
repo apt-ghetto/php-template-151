@@ -1,5 +1,7 @@
 <?php
 
+use aptghetto\bugtracker\BugTrackerFactory;
+
 error_reporting(E_ALL);
 session_start();
 
@@ -7,6 +9,7 @@ require_once("../vendor/autoload.php");
 $conf = parse_ini_file(__DIR__ . "/../config.ini", true);
 //var_dump($conf); die();
 $factory = new aptghetto\Factory($conf);
+$bugtrackerFactory = new BugTrackerFactory($conf);
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
@@ -26,6 +29,14 @@ switch($_SERVER["REQUEST_URI"]) {
 		} else {
 			$ctr->login($_POST);
 		}		
+		break;
+	case "/bt":
+		$ctr = $bugtrackerFactory->getLoginController();
+		if($_SERVER['REQUEST_METHOD'] == "GET") {
+			$ctr->showLogin();
+		} else {
+			$ctr->login($_POST);
+		}
 		break;
 	default:
 		$matches = [];
