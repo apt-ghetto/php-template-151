@@ -13,14 +13,7 @@ $bugtrackerFactory = new BugTrackerFactory($conf);
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
-		$factory->getIndexController()->homepage();
-		break;
-	case "/test/upload":
-		if(file_put_contents(__DIR__ . "/../../upload/test.txt", "Mein erster Upload")) {
-			echo "It worked";
-		} else {
-			echo "Error happened";
-		}
+		$bugtrackerFactory->getLoginController()->showLogin();
 		break;
 	case "/login":
 		$ctr = $factory->getLoginController();
@@ -38,6 +31,13 @@ switch($_SERVER["REQUEST_URI"]) {
 			$ctr->login($_POST);
 		}
 		break;
+	case "/register":
+		$ctr = $bugtrackerFactory->getLoginController();
+		if($_SERVER['REQUEST_METHOD'] == 'GET') {
+			$ctr->register();
+		}
+		
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
@@ -46,4 +46,6 @@ switch($_SERVER["REQUEST_URI"]) {
 		}
 		echo "Not Found";
 }
+
+
 

@@ -2,17 +2,16 @@
 
 <html>
 <head>
-	<link href="/global.css" rel="stylesheet">
+	<link href="global.css" rel="stylesheet">
 </head>
 <body>
-<h1>Login Bugtracker</h1>
-<form method="POST">
+<h1>Registrierung Bugtracker</h1>
+<form method="POST" action="newuser">
 <label>E-Mail:</label>
 <input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' />
 <label>Passwort:</label>
 <input type="password"name="password" />
-<input type="submit" value="Login" />
+<input type="submit" value="Registrierung" />
 </form>
-<a href="register">Registrierung</a>
 </body>
 </html>

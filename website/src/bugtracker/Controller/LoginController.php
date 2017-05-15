@@ -6,9 +6,9 @@ use aptghetto\bugtracker\Service\BugTrackerLoginService;
 
 class LoginController {
 	
-	private $template;
-	
+	private $template;	
 	private $loginService;
+	
 	
 	public function __construct(SimpleTemplateEngine $templ, BugTrackerLoginService $loginService) {
 		$this->template = $templ;
@@ -29,8 +29,19 @@ class LoginController {
 			$_SESSION["email"] = $data["email"];
 			header("Location: /");
 		} else {
-			echo $this->template->render("bugtracker/login.html.php", ["email" => $data["email"]]);
+			echo $this->template->render("bugtracker/home.html.php", ["email" => $data["email"]]);
 		}
-		echo "Process Login";
 	}
+	
+	public function register() {
+		echo $this->template->render("bugtracker/register.html.php");
+	}
+	
+	/*
+	 * $password = "my-secret-pw";
+	 * $hash = password_hash($password, PASSWORD_DEFAULT);
+	 * echo "Hash: " . $hash . "<br/>";
+	 * echo "Is true?";			password_verify
+	 *
+	 */
 }
