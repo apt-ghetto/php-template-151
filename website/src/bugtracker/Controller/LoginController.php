@@ -37,6 +37,14 @@ class LoginController {
 		echo $this->template->render("bugtracker/register.html.php");
 	}
 	
+	public function createNewUser(array $data) {
+		if(isset($data["email"]) && isset($data["password"])) {
+			$this->loginService->createNewUser($data["email"], $data["password"]);
+		} else {
+			$this->register();
+		}
+	}
+	
 	/*
 	 * $password = "my-secret-pw";
 	 * $hash = password_hash($password, PASSWORD_DEFAULT);

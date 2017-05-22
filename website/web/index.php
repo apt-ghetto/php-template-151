@@ -38,6 +38,9 @@ switch($_SERVER["REQUEST_URI"]) {
 		}
 		
 		break;
+	case "/newuser":
+		$bugtrackerFactory->getLoginController()->createNewUser($_POST);
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
