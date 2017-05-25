@@ -5,14 +5,24 @@
 	<link href="/global.css" rel="stylesheet">
 </head>
 <body>
+<div id="header">
 <h1>Login Bugtracker</h1>
+</div>
+<div id="wrapper">
+<div id="navigation">
+<ul>
+<li><a href="register">Registrierung</a></li>
+</ul>
+</div>
+<div id="content">
 <form method="POST">
-<label>E-Mail:</label>
-<input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' />
-<label>Passwort:</label>
-<input type="password"name="password" />
+<label>E-Mail:</label><br>
+<input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' /><br>
+<label>Passwort:</label><br>
+<input type="password"name="password" /><br><br>
 <input type="submit" value="Login" />
 </form>
-<a href="register">Registrierung</a>
+</div>
+</div>
 </body>
 </html>

@@ -33,4 +33,12 @@ class BugTrackerFactory {
 	public function getLoginService() {
 		return new BugTrackerMySQLLoginService($this->getPdo());
 	}
+	
+	public function getMailer() {
+		return \Swift_Mailer::newInstance(
+				\Swift_SmtpTransport::newInstance("smtp.gmail.com", 465, "ssl")
+				->setUsername("gibz.module.151@gmail.com")
+				->setPassword("Pe$6A+aprunu")
+				);
+	}
 }

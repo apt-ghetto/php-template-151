@@ -11,7 +11,9 @@ $conf = parse_ini_file(__DIR__ . "/../config.ini", true);
 $factory = new aptghetto\Factory($conf);
 $bugtrackerFactory = new BugTrackerFactory($conf);
 
-switch($_SERVER["REQUEST_URI"]) {
+
+$url = strtok($_SERVER["REQUEST_URI"], '?');
+switch($url) {
 	case "/":
 		$bugtrackerFactory->getLoginController()->showLogin();
 		break;
@@ -39,11 +41,30 @@ switch($_SERVER["REQUEST_URI"]) {
 		
 		break;
 	case "/newuser":
-		$bugtrackerFactory->getLoginController()->createNewUser($_POST);
+		$neuerNutzer = $bugtrackerFactory->getLoginController()->createNewUser($_POST);
+		$bugtrackerFactory->getMailer()->send(
+				Swift_Message::newInstance("Aktivierung Bugtracker")
+				->setFrom(["gibz.module.151@gmail.com" => "apt-ghetto"])
+				->setTo([$neuerNutzer["email"] => $neuerNutzer["nutzername"]])
+				->setBody("Bitte klicken Sie auf http://localhost/activate?token=" . $neuerNutzer['token'] . "&id=" .$neuerNutzer['id'])
+				);
+		break;
+	case "/activate":
+		$id = $_GET["id"];
+		$token = $_GET["token"];
+		$ctr = $bugtrackerFactory->getLoginController();
+		$ctr->activateUser($id, $token);
+		$ctr->showLogin();
 		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
+			$factory->getIndexController()->greet($matches[1]);
+			break;
+		}
+		
+		if(preg_match("|^/activate/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
+			$token = $matches[1];
 			$factory->getIndexController()->greet($matches[1]);
 			break;
 		}

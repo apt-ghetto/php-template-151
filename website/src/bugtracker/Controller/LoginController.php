@@ -3,6 +3,7 @@ namespace aptghetto\bugtracker\Controller;
 
 use aptghetto\SimpleTemplateEngine;
 use aptghetto\bugtracker\Service\BugTrackerLoginService;
+use aptghetto\bugtracker\BugTrackerFactory;
 
 class LoginController {
 	
@@ -29,7 +30,7 @@ class LoginController {
 			$_SESSION["email"] = $data["email"];
 			header("Location: /");
 		} else {
-			echo $this->template->render("bugtracker/home.html.php", ["email" => $data["email"]]);
+			$this->showLogin();
 		}
 	}
 	
@@ -38,10 +39,23 @@ class LoginController {
 	}
 	
 	public function createNewUser(array $data) {
-		if(isset($data["email"]) && isset($data["password"])) {
-			$this->loginService->createNewUser($data["email"], $data["password"]);
+		if(isset($data["email"]) && isset($data["password"]) && isset($data["nutzername"])) {
+			if(!$this->loginService->createNewUser($data["nutzername"], $data["email"], $data["password"])) {
+				echo "Nutzername oder Email existiert schon!";
+				$this->register();
+			} else {				
+				return $this->loginService->getUserTokenAndId($data["nutzername"], $data["email"]);
+			}
 		} else {
 			$this->register();
+		}
+	}
+	
+	public function activateUser($id, $token) {
+		if(isset($id) && isset($token)) {
+			$this->loginService->activateUser($id, $token);
+		} else {
+			$this->showLogin();
 		}
 	}
 	
