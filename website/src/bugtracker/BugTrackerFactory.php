@@ -41,4 +41,5 @@ class BugTrackerFactory {
 				->setPassword("Pe$6A+aprunu")
 				);
 	}
+
 }

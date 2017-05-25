@@ -9,4 +9,5 @@ interface BugTrackerLoginService {
 	public function activateUser($id, $token);
 	
 	public function getUserTokenAndId($nutzername, $email);
+
 }

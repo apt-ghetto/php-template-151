@@ -14,6 +14,7 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
 		$stmt = $this->pdo->prepare("SELECT email FROM nutzer WHERE email = ? AND passhash = ? AND token IS NULL");
 		$stmt->bindValue(1, $username);
 		$stmt->bindValue(2, $this->hashPass($password));
+
 		$stmt->execute();
 	
 		return $stmt->rowCount() == 1;

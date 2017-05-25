@@ -66,4 +66,5 @@ class LoginController {
 	 * echo "Is true?";			password_verify
 	 *
 	 */
+
 }

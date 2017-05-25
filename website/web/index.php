@@ -11,7 +11,6 @@ $conf = parse_ini_file(__DIR__ . "/../config.ini", true);
 $factory = new aptghetto\Factory($conf);
 $bugtrackerFactory = new BugTrackerFactory($conf);
 
-
 $url = strtok($_SERVER["REQUEST_URI"], '?');
 switch($url) {
 	case "/":
