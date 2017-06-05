@@ -31,9 +31,8 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
 			$stmt->execute();
 			
 			return true;
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
 	public function activateUser($id, $token) {
@@ -73,12 +72,4 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
 		
 		return $stmt->rowCount() == 0;
 	}
-	
-	/*
-	 * $password = "my-secret-pw";
-	 * $hash = password_hash($password, PASSWORD_DEFAULT);
-	 * echo "Hash: " . $hash . "<br/>";
-	 * echo "Is true?";			password_verify
-	 *
-	 */
 }

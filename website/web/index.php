@@ -58,8 +58,20 @@ switch($url) {
 		$ctr->showLogin();
 		break;
 	case "/newBug":
-		if(isset($_SESSION["email"])) {
-			
+		if(isset($_SESSION["email"]) && $_SERVER['REQUEST_METHOD'] == 'GET') {
+			$bugtrackerFactory->getBugController()->showNewBug();
+		} else if (isset($_SESSION["email"]) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+			$bugtrackerFactory->getBugController()->createNewBug($_POST["titel"], $_POST["description"]);
+		} else {
+			$bugtrackerFactory->getBugController()->showHome();
+		}
+		break;
+	case "/editBug":
+		$id = $_GET["id"];
+		if($_SERVER['REQUEST_METHOD'] == 'GET') {
+			$bugtrackerFactory->getBugController()->editBug($id);
+		} else {
+// 			$bugtrackerFactory->getBugController()->
 		}
 		break;
 	case "/logout":

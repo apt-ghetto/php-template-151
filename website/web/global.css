@@ -115,6 +115,16 @@ a.wiki {
     text-decoration: none;
 }
 
+#red {
+	color: #FF0000;
+	font-weight: bold;
+}
+
+#green {
+	color: #00CC33;
+	font-weight: bold;
+}
+
 
 /*
 || Formatierung für Popup-Hintergrund

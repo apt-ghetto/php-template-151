@@ -15,6 +15,21 @@ class BugController {
 	}
 	
 	public function showHome() {
-		echo $this->template->render("bugtracker/home.html.php");
+		echo $this->template->render("bugtracker/home.html.php", $this->bugService->getAllBugs());
+	}
+	
+	public function showNewBug() {
+		echo $this->template->render("bugtracker/neuerBug.html.php");
+	}
+	
+	public function createNewBug($titel, $description) {
+		$this->bugService->createNewBug($titel, $description);
+		$this->showHome();
+	}
+	
+	public function editBug($id) {
+		$bug = $this->bugService->getBugById($id);
+// 		var_dump($bug); die;
+		echo $this->template->render("bugtracker/editBug.html.php", $bug);
 	}
 }
