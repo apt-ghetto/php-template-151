@@ -11,13 +11,12 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
 	}
 	
 	public function authenticate($username, $password) {
-		$stmt = $this->pdo->prepare("SELECT email FROM nutzer WHERE email = ? AND passhash = ? AND token IS NULL");
+		$stmt = $this->pdo->prepare("SELECT passhash FROM nutzer WHERE email = ? AND token IS NULL");
 		$stmt->bindValue(1, $username);
-		$stmt->bindValue(2, $this->hashPass($password));
-
 		$stmt->execute();
-	
-		return $stmt->rowCount() == 1;
+		$passhash = $stmt->fetch();
+
+		return $this->verifyPassword($password, $passhash["passhash"]);
 	}
 	
 	
@@ -54,7 +53,11 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
 	}
 	
 	private function hashPass($password) {
-		return password_hash($password, PASSWORD_BCRYPT, array('cost', 13));
+		return password_hash($password, PASSWORD_DEFAULT);
+	}
+	
+	private function verifyPassword($password, $passhash) {
+		return password_verify($password, $passhash);
 	}
 	
 	private function generateToken() {

@@ -14,10 +14,10 @@ $bugtrackerFactory = new BugTrackerFactory($conf);
 $url = strtok($_SERVER["REQUEST_URI"], '?');
 switch($url) {
 	case "/":
-		$bugtrackerFactory->getLoginController()->showLogin();
+		$bugtrackerFactory->getBugController()->showHome();
 		break;
 	case "/login":
-		$ctr = $factory->getLoginController();
+		$ctr = $bugtrackerFactory->getLoginController();
 		if($_SERVER['REQUEST_METHOD'] == "GET") {
 			$ctr->showLogin();
 		} else {
@@ -40,13 +40,15 @@ switch($url) {
 		
 		break;
 	case "/newuser":
-		$neuerNutzer = $bugtrackerFactory->getLoginController()->createNewUser($_POST);
+		$ctr = $bugtrackerFactory->getLoginController();
+		$neuerNutzer = $ctr->createNewUser($_POST);
 		$bugtrackerFactory->getMailer()->send(
 				Swift_Message::newInstance("Aktivierung Bugtracker")
 				->setFrom(["gibz.module.151@gmail.com" => "apt-ghetto"])
 				->setTo([$neuerNutzer["email"] => $neuerNutzer["nutzername"]])
 				->setBody("Bitte klicken Sie auf http://localhost/activate?token=" . $neuerNutzer['token'] . "&id=" .$neuerNutzer['id'])
 				);
+		$ctr->danke();
 		break;
 	case "/activate":
 		$id = $_GET["id"];
@@ -54,6 +56,15 @@ switch($url) {
 		$ctr = $bugtrackerFactory->getLoginController();
 		$ctr->activateUser($id, $token);
 		$ctr->showLogin();
+		break;
+	case "/newBug":
+		if(isset($_SESSION["email"])) {
+			
+		}
+		break;
+	case "/logout":
+		unset($_SESSION["email"]);
+		$bugtrackerFactory->getLoginController()->showLogin();
 		break;
 	default:
 		$matches = [];

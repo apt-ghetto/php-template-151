@@ -3,7 +3,7 @@ namespace aptghetto\bugtracker\Controller;
 
 use aptghetto\SimpleTemplateEngine;
 use aptghetto\bugtracker\Service\BugTrackerLoginService;
-use aptghetto\bugtracker\BugTrackerFactory;
+// use aptghetto\bugtracker\BugTrackerFactory;
 
 class LoginController {
 	
@@ -43,7 +43,8 @@ class LoginController {
 			if(!$this->loginService->createNewUser($data["nutzername"], $data["email"], $data["password"])) {
 				echo "Nutzername oder Email existiert schon!";
 				$this->register();
-			} else {				
+			} else {
+				echo $this->template->render("bugtracker/danke.html.php");
 				return $this->loginService->getUserTokenAndId($data["nutzername"], $data["email"]);
 			}
 		} else {
@@ -57,6 +58,10 @@ class LoginController {
 		} else {
 			$this->showLogin();
 		}
+	}
+	
+	private function danke() {
+		echo $this->template->render("bugtracker/danke.html.php");
 	}
 	
 	/*
