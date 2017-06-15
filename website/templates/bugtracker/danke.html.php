@@ -11,7 +11,7 @@
 <div id="wrapper">
 <div id="navigation">
 <ul>
-<li><a href="register">Registrierung</a></li>
+<li><a href="/">Heimseite</a></li>
 </ul>
 </div>
 <div id="content">

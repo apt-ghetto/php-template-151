@@ -3,7 +3,7 @@
 
 <html>
 <head>
-	<link href="/global.css" rel="stylesheet">
+    <link href="/global.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
@@ -18,6 +18,7 @@
 </div>
 <div id="content">
 <form method="POST">
+<input type="hidden" name="token" value="<?= $token; ?>" />
 <label>E-Mail:</label><br>
 <input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' /><br>
 <label>Passwort:</label><br>

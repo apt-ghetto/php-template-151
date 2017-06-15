@@ -1,7 +1,7 @@
 
 <html>
 <head>
-	<link href="/global.css" rel="stylesheet">
+    <link href="/global.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
@@ -11,11 +11,11 @@
 <div id="navigation">
 <ul>
 <?php if(isset($_SESSION["email"])){
-	echo "<li><a href=\"logout\">Logout</a></li>";
-	echo "<li><a href=\"newBug\">Neuer Bug</a></li>";
+    echo "<li><a href=\"logout\">Logout</a></li>";
+    echo "<li><a href=\"newBug\">Neuer Bug</a></li>";
 } else {
-	echo "<li><a href=\"login\">Login</a></li>";
-	echo "<li><a href=\"register\">Registrierung</a></li>";
+    echo "<li><a href=\"login\">Login</a></li>";
+    echo "<li><a href=\"register\">Registrierung</a></li>";
 }
 ?>
 </ul>
@@ -28,22 +28,22 @@
 <th>Status</th>
 <th>Titel</th>
 <th>Beschreibung</th>
-<th></th>
+<th>Editieren</th>
 </tr>
-<?php 
+<?php
 foreach($arguments AS $row) {
-	echo "<tr>";
-	echo "<td>" . $row['id'] . "</td>";
-	echo "<td>" . $row['importance'] . "</td>";
-	echo "<td>" . $row['status'] . "</td>";
-	echo "<td>" . $row['title'] . "</td>";
-	echo "<td>" . $row['description'] . "</td>";
-	if (isset($_SESSION["email"])) {
-		echo "<td><a href=\"editBug?id=" . $row['id'] . "\">Edit</a>";
-	} else {
-		echo "<td>Editieren nicht möglich</td>";
-	}
-	echo "</tr>";
+    echo "<tr>";
+    echo "<td>" . $row['id'] . "</td>";
+    echo "<td>" . $row['importance'] . "</td>";
+    echo "<td>" . $row['status'] . "</td>";
+    echo "<td>" . $row['title'] . "</td>";
+    echo "<td>" . $row['description'] . "</td>";
+    if (isset($_SESSION["email"])) {
+        echo "<td><a href=\"editBug?id=" . $row['id'] . "\">Edit</a>";
+    } else {
+        echo "<td><a href=\"login\">Einloggen</a></td>";
+    }
+    echo "</tr>";
 }
 
 ?>

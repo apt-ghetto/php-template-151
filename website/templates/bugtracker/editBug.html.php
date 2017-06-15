@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<link href="/global.css" rel="stylesheet">
+    <link href="/global.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
@@ -15,7 +15,8 @@
 </ul>
 </div>
 <div id="content">
-<form method="POST" action="editBug">
+<form method="POST" action="editBug" name="bug">
+<input type="hidden" name="id" value="<?= $arguments['id']; ?>" />
 <label>Titel:</label><br>
 <input type="text" name="titel" value="<?= $arguments['title'] ?>"/><br>
 <?= $arguments['title']?>

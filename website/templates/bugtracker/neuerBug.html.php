@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<link href="/global.css" rel="stylesheet">
+    <link href="/global.css" rel="stylesheet">
 </head>
 <body>
 <div id="header">
@@ -16,6 +16,7 @@
 </div>
 <div id="content">
 <form method="POST" action="newBug">
+<input type="hidden" name="token" value="<?= $token; ?>" />
 <label>Titel:</label><br>
 <input type="text" name="titel"/><br>
 <label>Beschreibung:</label><br>
