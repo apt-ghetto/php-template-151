@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="header">
-<h1>Registrierung Bugtracker</h1>
+<h1>Passwort vergessen?</h1>
 </div>
 <div id="wrapper">
 <div id="navigation">
@@ -16,15 +16,17 @@
 </ul>
 </div>
 <div id="content">
-<form method="POST" action="newuser">
+<p>Bitte den Nutzernamen, die genutzte E-Mail-Adresse und das neue Passwort angeben.</p>
+<p>Anschliessend wird eine Aktivierungsmail verschickt.</p>
+<form method="POST" action="forgotpw">
 <input type="hidden" name="token" value="<?= $token; ?>" />
 <label>Nutzername:</label><br>
 <input type="text" name="nutzername" value='<?= (isset($nutzername)) ? $nutzername : "" ?>' /><br>
-<label>E-Mail:</label><br>
+<label>Genutzte E-Mail:</label><br>
 <input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' /><br>
-<label>Passwort:</label><br>
+<label>Neues Passwort:</label><br>
 <input type="password" name="password" /><br><br>
-<input type="submit" value="Registrieren" />
+<input type="submit" value="Neues Passwort verwenden" />
 </form>
 </div>
 </div>

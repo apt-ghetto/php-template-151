@@ -14,6 +14,7 @@
 <ul>
 <li><a href="/">Heimseite</a></li>
 <li><a href="register">Registrierung</a></li>
+<li><a href="forgot">Passwort vergessen</a></li>
 </ul>
 </div>
 <div id="content">
@@ -22,7 +23,7 @@
 <label>E-Mail:</label><br>
 <input type="email" name="email" value='<?= (isset($email)) ? $email : ""?>' /><br>
 <label>Passwort:</label><br>
-<input type="password"name="password" /><br><br>
+<input type="password" name="password" /><br><br>
 <input type="submit" value="Login" />
 </form>
 </div>

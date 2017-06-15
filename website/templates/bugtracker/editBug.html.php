@@ -34,6 +34,7 @@
 <label>Status:</label><br>
 <select name="status">
 <option <?= $arguments["status"] == "NEW" ? "selected=\"selected\"" : "" ?>>NEW</option>
+<option <?= $arguments["status"] == "INVALID" ? "selected=\"selected\"" : "" ?>>INVALID</option>
 <option <?= $arguments["status"] == "FIXED" ? "selected=\"selected\"" : "" ?>>FIXED</option>
 </select>
 <br><br>

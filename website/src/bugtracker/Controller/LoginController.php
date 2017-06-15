@@ -60,6 +60,23 @@ class LoginController {
         }
     }
 
+    public function reactivateUser(array $nutzer) {
+        if($this->hasValidToken($nutzer["token"])) {
+            $name = $nutzer["nutzername"];
+            $email = $nutzer["email"];
+            $passwort = $nutzer["password"];
+            if($this->loginService->reactivateAccount($name, $email, $passwort)) {
+                echo $this->danke();
+                return $this->loginService->getUserTokenAndId($name, $email);
+            }
+        }
+        return false;
+    }
+
+    public function showForgot() {
+        echo $this->template->render("bugtracker/forgot.html.php", ["token" => $this->createSessionToken()]);
+    }
+
     private function createSessionToken() {
         $token = bin2hex(random_bytes(100));
         $_SESSION["token"] = $token;
@@ -74,13 +91,4 @@ class LoginController {
     private function danke() {
         echo $this->template->render("bugtracker/danke.html.php");
     }
-
-    /*
-     * $password = "my-secret-pw";
-     * $hash = password_hash($password, PASSWORD_DEFAULT);
-     * echo "Hash: " . $hash . "<br/>";
-     * echo "Is true?";            password_verify
-     *
-     */
-
 }

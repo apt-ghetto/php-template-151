@@ -15,7 +15,7 @@
 </ul>
 </div>
 <div id="content">
-<p>Vielen Dank, dass Sie sich registriert haben.</p>
+<p>Vielen Dank</p>
 <p>Sie erhalten nächstens eine Email zur Aktivierung ihres Accounts.</p>
 </div>
 </div>

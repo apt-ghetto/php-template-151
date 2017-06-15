@@ -37,7 +37,6 @@ switch($url) {
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
             $ctr->register();
         }
-
         break;
     case "/newuser":
         $ctr = $bugtrackerFactory->getLoginController();
@@ -45,12 +44,12 @@ switch($url) {
             $ctr->showLogin();
         }
         $neuerNutzer = $ctr->createNewUser($_POST);
-//         $bugtrackerFactory->getMailer()->send(
-//                 Swift_Message::newInstance("Aktivierung Bugtracker")
-//                 ->setFrom(["gibz.module.151@gmail.com" => "apt-ghetto"])
-//                 ->setTo([$neuerNutzer["email"] => $neuerNutzer["nutzername"]])
-//                 ->setBody("Bitte klicken Sie auf http://localhost/activate?token=" . $neuerNutzer['token'] . "&id=" .$neuerNutzer['id'])
-//                 );
+        $bugtrackerFactory->getMailer()->send(
+                Swift_Message::newInstance("Aktivierung Bugtracker")
+                ->setFrom(["gibz.module.151@gmail.com" => "apt-ghetto"])
+                ->setTo([$neuerNutzer["email"] => $neuerNutzer["nutzername"]])
+                ->setBody("Bitte klicken Sie auf http://localhost/activate?token=" . $neuerNutzer['token'] . "&id=" .$neuerNutzer['id'])
+                );
         break;
     case "/activate":
         $id = $_GET["id"];
@@ -58,6 +57,23 @@ switch($url) {
         $ctr = $bugtrackerFactory->getLoginController();
         $ctr->activateUser($id, $token);
         $ctr->showLogin();
+        break;
+    case "/forgot":
+        $bugtrackerFactory->getLoginController()->showForgot();
+        break;
+    case "/forgotpw":
+        $ctr = $bugtrackerFactory->getLoginController();
+        $nutzer = $ctr->reactivateUser($_POST);
+        if($nutzer){
+            $bugtrackerFactory->getMailer()->send(
+                    Swift_Message::newInstance("Aktivierung Bugtracker")
+                    ->setFrom(["gibz.module.151@gmail.com" => "apt-ghetto"])
+                    ->setTo([$nutzer['email'] => $nutzer['nutzername']])
+                    ->setBody("Bitte klicken Sie auf http://localhost/activate?token=" . $nutzer['token'] . "&id=" . $nutzer['id'])
+                    );
+        } else {
+            $bugtrackerFactory->getLoginController()->showForgot();
+        }
         break;
     case "/newBug":
         if(isset($_SESSION["email"]) && $_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -74,6 +90,7 @@ switch($url) {
             $bugtrackerFactory->getBugController()->editBug($id);
         } else {
             $bugtrackerFactory->getBugController()->saveBug($_POST);
+            $bugtrackerFactory->getBugController()->showHome();
         }
         break;
     case "/logout":
@@ -95,6 +112,7 @@ switch($url) {
         }
         echo "Not Found";
 }
+
 
 
 

@@ -51,6 +51,21 @@ class BugTrackerMySQLLoginService implements BugTrackerLoginService {
         return $stmt->fetch();
     }
 
+    public function reactivateAccount($name, $email, $password) {
+        if($this->userExistsNot($name, $email)) {
+            return false;
+        }
+        $stmt = $this->pdo->prepare("UPDATE nutzer SET token = ?, passhash = ? WHERE email = ? AND nutzername = ?");
+        $stmt->bindValue(1, $this->generateToken());
+        $stmt->bindValue(2, $this->hashPass($password));
+        $stmt->bindValue(3, $email);
+        $stmt->bindValue(4, $name);
+
+        $stmt->execute();
+
+        return $stmt->rowCount() == 1;
+    }
+
     private function hashPass($password) {
         return password_hash($password, PASSWORD_DEFAULT);
     }

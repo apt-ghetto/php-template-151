@@ -32,7 +32,7 @@ class BugServiceMySQL implements BugService {
     }
 
     public function getAllBugs() {
-        $stmt = $this->pdo->prepare("SELECT id, title, description, importance, status FROM bug ORDER BY importance DESC");
+        $stmt = $this->pdo->prepare("SELECT id, title, description, importance, status FROM bug ORDER BY importance ASC");
         $stmt->execute();
 
         return $stmt->fetchAll();
