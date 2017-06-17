@@ -62,7 +62,7 @@ class LoginController {
     }
 
     public function reactivateUser(array $nutzer) {
-        if($this->hasValidToken($nutzer["token"])) {
+        if($this->sessionCtr->hasValidToken($nutzer["token"])) {
             $name = $nutzer["nutzername"];
             $email = $nutzer["email"];
             $passwort = $nutzer["password"];

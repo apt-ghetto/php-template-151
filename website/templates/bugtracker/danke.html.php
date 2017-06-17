@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="header">
-<h1>Registrierung abgeschlossen</h1>
+<h1>Vorgang abgeschlossen</h1>
 </div>
 <div id="wrapper">
 <div id="navigation">
