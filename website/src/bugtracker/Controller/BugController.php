@@ -3,15 +3,16 @@ namespace aptghetto\bugtracker\Controller;
 
 use aptghetto\SimpleTemplateEngine;
 use aptghetto\bugtracker\Service\BugService;
-// use aptghetto\bugtracker\BugTrackerFactory;
 
 class BugController {
     private $template;
     private $bugService;
+    private $sessionCtr;
 
-    public function __construct(SimpleTemplateEngine $templ, BugService $bugService) {
+    public function __construct(SimpleTemplateEngine $templ, BugService $bugService, SessionController $sessionCtr) {
         $this->template = $templ;
         $this->bugService = $bugService;
+        $this->sessionCtr = $sessionCtr;
     }
 
     public function showHome() {
@@ -19,7 +20,7 @@ class BugController {
     }
 
     public function showNewBug() {
-        echo $this->template->render("bugtracker/neuerBug.html.php");
+        echo $this->template->render("bugtracker/neuerBug.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
     }
 
     public function createNewBug($titel, $description) {
@@ -28,22 +29,17 @@ class BugController {
     }
 
     public function editBug($id) {
-        $bug = $this->bugService->getBugById($id);
-        echo $this->template->render("bugtracker/editBug.html.php", $bug);
+        $token = array("token" => $this->sessionCtr->createSessionToken());
+        $array = array_merge($this->bugService->getBugById($id), $token);
+        echo $this->template->render("bugtracker/editBug.html.php", $array);
     }
 
     public function saveBug(array $bug) {
-        $this->bugService->saveBug($bug);
+        if($this->sessionCtr->hasValidToken($bug['token'])) {
+            $this->bugService->saveBug($bug);
+        } else {
+            unset($_SESSION['email']);
+        }
     }
 
-    private function createSessionToken() {
-        $token = bin2hex(random_bytes(100));
-        $_SESSION["token"] = $token;
-
-        return $token;
-    }
-
-    private function hasValidToken($token) {
-        return $token == $_SESSION["token"];
-    }
 }

@@ -16,6 +16,7 @@
 </div>
 <div id="content">
 <form method="POST" action="editBug" name="bug">
+<input type="hidden" name="token" value="<?= $arguments['token']; ?>" />
 <input type="hidden" name="id" value="<?= $arguments['id']; ?>" />
 <label>Titel:</label><br>
 <input type="text" name="titel" value="<?= $arguments['title'] ?>"/><br>

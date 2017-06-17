@@ -3,25 +3,26 @@ namespace aptghetto\bugtracker\Controller;
 
 use aptghetto\SimpleTemplateEngine;
 use aptghetto\bugtracker\Service\BugTrackerLoginService;
-// use aptghetto\bugtracker\BugTrackerFactory;
 
 class LoginController {
 
     private $template;
     private $loginService;
+    private $sessionCtr;
 
 
-    public function __construct(SimpleTemplateEngine $templ, BugTrackerLoginService $loginService) {
+    public function __construct(SimpleTemplateEngine $templ, BugTrackerLoginService $loginService, SessionController $sessionCtr) {
         $this->template = $templ;
         $this->loginService = $loginService;
+        $this->sessionCtr = $sessionCtr;
     }
 
     public function showLogin() {
-        echo $this->template->render("bugtracker/login.html.php", ["token" => $this->createSessionToken()]);
+        echo $this->template->render("bugtracker/login.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
     }
 
     public function login(array $data) {
-        if(!array_key_exists("email", $data) OR !array_key_exists("password", $data) OR !$this->hasValidToken($data["token"])){
+        if(!array_key_exists("email", $data) OR !array_key_exists("password", $data) OR !$this->sessionCtr->hasValidToken($data["token"])){
             $this->showLogin();
             return;
         }
@@ -35,7 +36,7 @@ class LoginController {
     }
 
     public function register() {
-        echo $this->template->render("bugtracker/register.html.php", ["token" => $this->createSessionToken()]);
+        echo $this->template->render("bugtracker/register.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
     }
 
     public function createNewUser(array $data) {
@@ -74,19 +75,9 @@ class LoginController {
     }
 
     public function showForgot() {
-        echo $this->template->render("bugtracker/forgot.html.php", ["token" => $this->createSessionToken()]);
+        echo $this->template->render("bugtracker/forgot.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
     }
 
-    private function createSessionToken() {
-        $token = bin2hex(random_bytes(100));
-        $_SESSION["token"] = $token;
-
-        return $token;
-    }
-
-    private function hasValidToken($token) {
-        return $token == $_SESSION["token"];
-    }
 
     private function danke() {
         echo $this->template->render("bugtracker/danke.html.php");

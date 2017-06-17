@@ -4,8 +4,10 @@ namespace aptghetto\bugtracker;
 use aptghetto\SimpleTemplateEngine;
 use aptghetto\bugtracker\Controller\LoginController;
 use aptghetto\bugtracker\Controller\BugController;
+use aptghetto\bugtracker\Controller\SessionController;
 use aptghetto\bugtracker\Service\BugTrackerMySQLLoginService;
 use aptghetto\bugtracker\Service\BugServiceMySQL;
+
 
 class BugTrackerFactory {
 
@@ -29,11 +31,11 @@ class BugTrackerFactory {
     }
 
     public function getLoginController() {
-        return new LoginController($this->getTemplateEngine(), $this->getLoginService());
+        return new LoginController($this->getTemplateEngine(), $this->getLoginService(), $this->getSessionController());
     }
 
     public function getBugController() {
-        return new BugController($this->getTemplateEngine(), $this->getBugService());
+        return new BugController($this->getTemplateEngine(), $this->getBugService(), $this->getSessionController());
     }
 
     public function getLoginService() {
@@ -42,6 +44,10 @@ class BugTrackerFactory {
 
     public function getBugService() {
         return new BugServiceMySQL($this->getPdo());
+    }
+
+    private function getSessionController() {
+        return new SessionController();
     }
 
     public function getMailer() {

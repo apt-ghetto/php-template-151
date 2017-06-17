@@ -12,6 +12,7 @@
 <div id="navigation">
 <ul>
 <li><a href="/">Heimseite</a></li>
+<li><a href="login">Login</a></li>
 </ul>
 </div>
 <div id="content">
