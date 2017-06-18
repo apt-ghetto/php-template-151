@@ -42,4 +42,18 @@ class BugController {
         }
     }
 
+    public function upload() {
+        echo $this->template->render("bugtracker/upload.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
+    }
+
+    public function uploadFile(array $files) {
+        if('txt' == strtolower(pathinfo($files['datei']['name'], PATHINFO_EXTENSION))) {
+            move_uploaded_file($files['datei']['tmp_name'], '../../upload/' . $files['datei']['name']);
+            echo "<p id=\"green\">Upload hat geklappt</p>";
+            $this->showNewBug();
+        } else {
+            $this->showHome();
+        }
+    }
+
 }

@@ -98,6 +98,13 @@ switch($url) {
         header("Location: /login");
         $bugtrackerFactory->getLoginController()->showLogin();
         break;
+    case "/upload":
+        if($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $bugtrackerFactory->getBugController()->upload();
+        } else if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $bugtrackerFactory->getBugController()->uploadFile($_FILES);
+        }
+        break;
     default:
         $matches = [];
         if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {

@@ -12,6 +12,7 @@
 <div id="navigation">
 <ul>
 <li><a href="/">Heimseite</a></li>
+<li><a href="/upload">Datei obsi laden</a></li>
 </ul>
 </div>
 <div id="content">
