@@ -78,7 +78,6 @@ class LoginController {
         echo $this->template->render("bugtracker/forgot.html.php", ["token" => $this->sessionCtr->createSessionToken()]);
     }
 
-
     private function danke() {
         echo $this->template->render("bugtracker/danke.html.php");
     }

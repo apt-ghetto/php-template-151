@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html>
 <head>
     <link href="/global.css" rel="stylesheet">
@@ -13,6 +13,7 @@
 <?php if(isset($_SESSION["email"])){
     echo "<li><a href=\"logout\">Logout</a></li>";
     echo "<li><a href=\"newBug\">Neuer Bug</a></li>";
+    echo "<br>";
 } else {
     echo "<li><a href=\"login\">Login</a></li>";
     echo "<li><a href=\"register\">Registrierung</a></li>";
@@ -33,13 +34,13 @@
 <?php
 foreach($arguments AS $row) {
     echo "<tr>";
-    echo "<td>" . $row['id'] . "</td>";
-    echo "<td>" . $row['importance'] . "</td>";
-    echo "<td>" . $row['status'] . "</td>";
-    echo "<td>" . $row['title'] . "</td>";
-    echo "<td>" . $row['description'] . "</td>";
+    echo "<td>" . htmlentities($row['id']) . "</td>";
+    echo "<td>" . htmlentities($row['importance']) . "</td>";
+    echo "<td>" . htmlentities($row['status']) . "</td>";
+    echo "<td>" . htmlentities($row['title']) . "</td>";
+    echo "<td>" . htmlentities($row['description']) . "</td>";
     if (isset($_SESSION["email"])) {
-        echo "<td><a href=\"editBug?id=" . $row['id'] . "\">Edit</a>";
+        echo "<td><a href=\"editBug?id=" . htmlentities($row['id']) . "\">Edit</a>";
     } else {
         echo "<td><a href=\"login\">Einloggen</a></td>";
     }

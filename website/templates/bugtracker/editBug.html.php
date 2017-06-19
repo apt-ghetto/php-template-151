@@ -19,24 +19,23 @@
 <input type="hidden" name="token" value="<?= $arguments['token']; ?>" />
 <input type="hidden" name="id" value="<?= $arguments['id']; ?>" />
 <label>Titel:</label><br>
-<input type="text" name="titel" value="<?= $arguments['title'] ?>"/><br>
-<?= $arguments['title']?>
+<input type="text" name="titel" value="<?= htmlentities($arguments['title']) ?>"/><br>
 <label>Beschreibung:</label><br>
-<textarea name="description" rows="10" cols="100"><?= $arguments['description'] ?></textarea><br><br>
+<textarea name="description" rows="10" cols="100"><?= htmlentities($arguments['description']) ?></textarea><br><br>
 <label>Wichtigkeit:</label><br>
 <select name="importance">
-<option <?= $arguments["importance"] == "BLOCKER" ? "selected=\"selected\"" : "" ?>>BLOCKER</option>
-<option <?= $arguments["importance"] == "CRITICAL" ? "selected=\"selected\"" : "" ?>>CRITICAL</option>
-<option <?= $arguments["importance"] == "HIGH" ? "selected=\"selected\"" : "" ?>>HIGH</option>
-<option <?= $arguments["importance"] == "MIDDLE" ? "selected=\"selected\"" : "" ?>>MIDDLE</option>
-<option <?= $arguments["importance"] == "LOW" ? "selected=\"selected\"" : "" ?>>LOW</option>
-<option <?= $arguments["importance"] == "UNDECIDED" ? "selected=\"selected\"" : "" ?>>UNDECIDED</option>
+<option <?= htmlentities($arguments["importance"]) == "BLOCKER" ? "selected=\"selected\"" : "" ?>>BLOCKER</option>
+<option <?= htmlentities($arguments["importance"]) == "CRITICAL" ? "selected=\"selected\"" : "" ?>>CRITICAL</option>
+<option <?= htmlentities($arguments["importance"]) == "HIGH" ? "selected=\"selected\"" : "" ?>>HIGH</option>
+<option <?= htmlentities($arguments["importance"]) == "MIDDLE" ? "selected=\"selected\"" : "" ?>>MIDDLE</option>
+<option <?= htmlentities($arguments["importance"]) == "LOW" ? "selected=\"selected\"" : "" ?>>LOW</option>
+<option <?= htmlentities($arguments["importance"]) == "UNDECIDED" ? "selected=\"selected\"" : "" ?>>UNDECIDED</option>
 </select><br>
 <label>Status:</label><br>
 <select name="status">
-<option <?= $arguments["status"] == "NEW" ? "selected=\"selected\"" : "" ?>>NEW</option>
-<option <?= $arguments["status"] == "INVALID" ? "selected=\"selected\"" : "" ?>>INVALID</option>
-<option <?= $arguments["status"] == "FIXED" ? "selected=\"selected\"" : "" ?>>FIXED</option>
+<option <?= htmlentities($arguments["status"]) == "NEW" ? "selected=\"selected\"" : "" ?>>NEW</option>
+<option <?= htmlentities($arguments["status"]) == "INVALID" ? "selected=\"selected\"" : "" ?>>INVALID</option>
+<option <?= htmlentities($arguments["status"]) == "FIXED" ? "selected=\"selected\"" : "" ?>>FIXED</option>
 </select>
 <br><br>
 <input type="submit" value="Speichern" />

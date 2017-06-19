@@ -56,7 +56,7 @@ switch($url) {
         $token = $_GET["token"];
         $ctr = $bugtrackerFactory->getLoginController();
         $ctr->activateUser($id, $token);
-        $ctr->showLogin();
+        header("Location: /login");
         break;
     case "/forgot":
         $bugtrackerFactory->getLoginController()->showForgot();
@@ -96,7 +96,6 @@ switch($url) {
     case "/logout":
         unset($_SESSION["email"]);
         header("Location: /login");
-        $bugtrackerFactory->getLoginController()->showLogin();
         break;
     case "/upload":
         if($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -106,18 +105,8 @@ switch($url) {
         }
         break;
     default:
-        $matches = [];
-        if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
-            $factory->getIndexController()->greet($matches[1]);
-            break;
-        }
-
-        if(preg_match("|^/activate/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
-            $token = $matches[1];
-            $factory->getIndexController()->greet($matches[1]);
-            break;
-        }
         echo "Not Found";
+        break;
 }
 
 
